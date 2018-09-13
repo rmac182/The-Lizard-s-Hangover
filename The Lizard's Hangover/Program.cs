@@ -10,6 +10,8 @@ namespace The_Lizard_s_Hangover
     {
         static void Main(string[] args)
         {
+            var game = new Game();
+            game.Play();
         }
     }
 }
