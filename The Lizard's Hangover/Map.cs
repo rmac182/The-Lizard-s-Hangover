@@ -25,6 +25,8 @@ namespace The_Lizard_s_Hangover
 
         public Map()
         {
+            //create player
+            Player player = new Player();
             //generate the default map
             _mapGrid = new Tile[,]
             {
@@ -41,15 +43,16 @@ namespace The_Lizard_s_Hangover
                 {new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(true ),new Tile(true ),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false) },
                 {new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false) }
            };
-            //Set player starting position
-            PlayerX = 5;
-            PlayerY = 10;
-
+        
+            
+            //set descriptions for accessible tiles
+            _mapGrid[6, 10].TileDescription = "There is like a fairy here. she's \nlike, kinda hot, and offers you a potion.";
+            _mapGrid[5, 9].TileDescription = "A long trail before you to the north.\n or go west, seriously dude. Go west.";
+            _mapGrid[5, 8].TileDescription = "A long trail before you, walk! numbNuts!!!";
+            _mapGrid[5, 7].TileDescription = "A long trail before you, walk! numbNuts!!!";
         }
 
-        //Short form properties with private setters, in other words read-only outside the class
-        public int PlayerX { get; private set; }
-        public int PlayerY { get; private set; }
+        
 
         //Read-only properties to get the width and height of the map
         public int Width
@@ -62,10 +65,10 @@ namespace The_Lizard_s_Hangover
             get { return _mapGrid.GetLength(1); }
         }
 
-        public bool Move(Direction direction)
+        public bool Move(Direction direction , Player _player)
         {
-            int newX = PlayerX;
-            int newY = PlayerY;
+            int newX = _player.PlayerX;
+            int newY = _player.PlayerY;
 
             switch (direction)
             {
@@ -88,12 +91,12 @@ namespace The_Lizard_s_Hangover
             if (newX < 0 || newY < 0 || newX >= Width || newY >= Height || _mapGrid[newY, newX].IsAccessible == false)
                 return false;
 
-            PlayerX = newX;
-            PlayerY = newY;
+            _player.PlayerX = newX;
+            _player.PlayerY = newY;
             return true;
         }
 
-        public void Print()
+        public void Print(Player _player)
         {
 
 
@@ -104,7 +107,7 @@ namespace The_Lizard_s_Hangover
                 for (int x = 0; x < Width; x++)
                 {
                     var currentTile = _mapGrid[y, x];
-                    if (x == PlayerX && y == PlayerY)
+                    if (x == _player.PlayerX && y == _player.PlayerY)
                     {
                         Console.ForegroundColor = PLAYER_COLOR;
                         Console.Write(" O ");
@@ -127,9 +130,9 @@ namespace The_Lizard_s_Hangover
             }
 
         }
-        public void PrintDescription( int x , int y)
+        public void PrintDescription( Player _player)
         {
-            Console.WriteLine(_mapGrid[x , y].TileDescription);
+            Console.WriteLine(_mapGrid[_player.PlayerX , _player.PlayerY].TileDescription);
 
         }
 
