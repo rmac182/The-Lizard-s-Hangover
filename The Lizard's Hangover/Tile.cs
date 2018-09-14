@@ -54,8 +54,13 @@ namespace The_Lizard_s_Hangover
             get { return _tileName; } //This is a getter. It's the code that returns the value
             set { _tileName = value; } //The code that sets the value. 
         }
-                                         //====================================
-        private string _tileDescription = "This is the beginning of your \njourney and stuff.";
+        //====================================
+        public string _tileDescription = "";
+        // default tile description for tiles that havent had a description written.
+        public void DefaultTileDescription(Tile _tile, Player _player)
+        {
+            _tile.TileDescription = "Player X pos: " + _player.PlayerX + " Player Y pos: " + _player.PlayerY;
+        }
         //This is just the default description for the tile. the starting point. ***Where is the best place
         //to write out each accessible tile's description.its alot of writing(so a different page) but 
         //wont need a class of its own, will it? whats the best way to do that?***

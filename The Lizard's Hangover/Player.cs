@@ -12,6 +12,6 @@ namespace The_Lizard_s_Hangover
         public int PlayerX { get;  set; }
         public int PlayerY { get;  set; }
 
-       
+
     }
 }

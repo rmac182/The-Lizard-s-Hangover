@@ -56,11 +56,13 @@ namespace The_Lizard_s_Hangover
                 Console.Clear();
                 PrintBanner();
                 Map.Print(Player);
+                // for testing prints player x and y position on map above description
+                Console.WriteLine("X pos: " + Player.PlayerX + " Y pos: " + Player.PlayerY);
                 Map.PrintDescription(Player);
                 PrintMenu();
-                // for testing prints player x and y position on map below menu
+                
 
-                Console.WriteLine("X pos: " +Player.PlayerX + " Y pos: " + Player.PlayerY);
+                
                 var input = Console.ReadKey();
 
                 switch (input.Key)

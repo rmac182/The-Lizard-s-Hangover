@@ -43,16 +43,21 @@ namespace The_Lizard_s_Hangover
                 {new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(true ),new Tile(true ),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false) },
                 {new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false) }
            };
-        
-            
+
+
             //set descriptions for accessible tiles
-            _mapGrid[6, 10].TileDescription = "There is like a fairy here. she's \nlike, kinda hot, and offers you a potion.";
+            
+            _mapGrid[5, 10].TileDescription = "Your journey begins!";
+            _mapGrid[6, 10].TileDescription = "There is like a fairy here. she's \nlike, kinda hot, and offers you a \npotion.";
             _mapGrid[5, 9].TileDescription = "A long trail before you to the north.\n or go west, seriously dude. Go west.";
-            _mapGrid[5, 8].TileDescription = "A long trail before you, walk! numbNuts!!!";
-            _mapGrid[5, 7].TileDescription = "A long trail before you, walk! numbNuts!!!";
+            _mapGrid[5, 8].TileDescription = "A long trail before you. Walk! \nNumb-nuts!!!";
+            _mapGrid[5, 7].TileDescription = "A long trail before you. Walk! \nNumb-nuts!!!";
+
+
+
         }
 
-        
+
 
         //Read-only properties to get the width and height of the map
         public int Width
