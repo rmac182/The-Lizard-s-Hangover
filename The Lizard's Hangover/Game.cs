@@ -148,6 +148,17 @@ namespace The_Lizard_s_Hangover
                 // for testing prints player x and y position on map above description
                 Console.WriteLine("X pos: " + Player.PlayerX + " Y pos: " + Player.PlayerY);
                 Map.PrintDescription(Player);
+                // Clunky as hell but demonstrates how the map "works". cant access PickupMap(); 
+                // from the MapItem class for some reason. from the start. go N,W,W,N to find the map.
+                if (Player.PlayerX == 3 && Player.PlayerY == 8)
+                {
+                    GameItems[2].InPossession = true;
+                    Console.Clear();
+                    PrintBanner();
+                    Map.Print(Player, GameItems[2]);
+                    Map.PrintDescription(Player);
+                    Console.WriteLine("you found a map!");
+                }
                 PrintMenu();
                 PrintInventory();
                 
@@ -181,6 +192,7 @@ namespace The_Lizard_s_Hangover
 
                 }
             }
+            
 
         }
 

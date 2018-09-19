@@ -60,9 +60,14 @@ namespace The_Lizard_s_Hangover
         {
 
         }
-        public void PickupMap()
+        public void PickupMap(Player _player)
         {
-            this.InPossession = true;
+            if (_player.PlayerX == 3 && _player.PlayerY == 8)
+            {
+                this.InPossession = true;
+                Console.WriteLine("you gotta map!");
+            }
+           
         }
     }
 
