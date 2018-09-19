@@ -35,10 +35,10 @@ namespace The_Lizard_s_Hangover
                 {new Tile(false),new Tile(true ),new Tile(false),new Tile(false),new Tile(true ),new Tile(false),new Tile(true ),new Tile(false),new Tile(true ),new Tile(false),new Tile(false),new Tile(false) },
                 {new Tile(false),new Tile(true ),new Tile(true ),new Tile(true ),new Tile(true ),new Tile(true ),new Tile(true ),new Tile(false),new Tile(true ),new Tile(false),new Tile(false),new Tile(false) },
                 {new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(true ),new Tile(false),new Tile(false),new Tile(false) },
-                {new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(true ),new Tile(true ),new Tile(false),new Tile(true ),new Tile(false),new Tile(false),new Tile(false) },
-                {new Tile(false),new Tile(true ),new Tile(true ),new Tile(false),new Tile(false),new Tile(true ),new Tile(true ),new Tile(true ),new Tile(true ),new Tile(false),new Tile(false),new Tile(false) },
-                {new Tile(false),new Tile(true ),new Tile(false),new Tile(false),new Tile(false),new Tile(true ),new Tile(true ),new Tile(false),new Tile(true ),new Tile(false),new Tile(false),new Tile(false) },
-                {new Tile(false),new Tile(true ),new Tile(false),new Tile(true ),new Tile(false),new Tile(true ),new Tile(true ),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false) },
+                {new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(true ),new Tile(true ),new Tile(true ),new Tile(true ),new Tile(false),new Tile(false),new Tile(false) },
+                {new Tile(false),new Tile(true ),new Tile(true ),new Tile(false),new Tile(false),new Tile(true ),new Tile(false),new Tile(false),new Tile(true ),new Tile(false),new Tile(false),new Tile(false) },
+                {new Tile(false),new Tile(true ),new Tile(false),new Tile(false),new Tile(false),new Tile(true ),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false) },
+                {new Tile(false),new Tile(true ),new Tile(false),new Tile(true ),new Tile(false),new Tile(true ),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false) },
                 {new Tile(false),new Tile(true ),new Tile(true ),new Tile(true ),new Tile(true ),new Tile(true ),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false) },
                 {new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(true ),new Tile(true ),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false) },
                 {new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false),new Tile(false) }
@@ -46,14 +46,16 @@ namespace The_Lizard_s_Hangover
 
 
             //set descriptions for accessible tiles
-            
-            _mapGrid[5, 10].TileDescription = "Your journey begins!";
+
+            _mapGrid[5, 10].TileDescription = "An interesting aroma and strange glow\n" +
+                "to the east. To the north, a narrow, \ncovered trail.";
             _mapGrid[6, 10].TileDescription = "There is like a fairy here. she's \nlike, kinda hot, and offers you a \npotion.";
             _mapGrid[5, 9].TileDescription = "A long trail before you to the north.\n or go west, seriously dude. Go west.";
-            _mapGrid[5, 8].TileDescription = "A long trail before you. Walk! \nNumb-nuts!!!";
-            _mapGrid[5, 7].TileDescription = "A long trail before you. Walk! \nNumb-nuts!!!";
-
-
+            _mapGrid[5, 8].TileDescription = "A long trail before you.";
+            _mapGrid[5, 7].TileDescription = "A long trail before you.";
+            _mapGrid[5, 6].TileDescription = "A long trail before you.";
+           
+           
 
         }
 
@@ -70,7 +72,7 @@ namespace The_Lizard_s_Hangover
             get { return _mapGrid.GetLength(1); }
         }
 
-        public bool Move(Direction direction , Player _player)
+        public bool Move(Direction direction, Player _player)
         {
             int newX = _player.PlayerX;
             int newY = _player.PlayerY;
@@ -101,40 +103,65 @@ namespace The_Lizard_s_Hangover
             return true;
         }
 
-        public void Print(Player _player)
+        public void Print(Player _player, Item _item)
         {
-
-
             Console.ForegroundColor = MAP_COLOR;
             Console.BackgroundColor = MAP_BACKGROUND;
-            for (int y = 0; y < Height; y++)
+
+            if (_item.InPossession == true)
             {
-                for (int x = 0; x < Width; x++)
+                for (int y = 0; y < Height; y++)
                 {
-                    var currentTile = _mapGrid[y, x];
-                    if (x == _player.PlayerX && y == _player.PlayerY)
+                    for (int x = 0; x < Width; x++)
                     {
-                        Console.ForegroundColor = PLAYER_COLOR;
-                        Console.Write(" O ");
-                        Console.ForegroundColor = MAP_COLOR;
-                    }
-                    else if (currentTile.IsAccessible)
-                    {
-                        Console.Write("   ");
+                        var currentTile = _mapGrid[y, x];
+                        if (x == _player.PlayerX && y == _player.PlayerY)
+                        {
+                            Console.ForegroundColor = PLAYER_COLOR;
+                            Console.Write(" O ");
+                            Console.ForegroundColor = MAP_COLOR;
+                        }
+                        else if (currentTile.IsAccessible)
+                        {
+                            Console.Write("   ");
 
-                    }
-                    else
-                    {
+                        }
+                        else
+                        {
 
-                        Console.Write("▒▒▒");
+                            Console.Write("▒▒▒");
+                        }
                     }
+
+                    Console.WriteLine();
+
+                }
+            }
+            else
+            {
+                for (int y = 0; y < Height; y++)
+                {
+                    for (int x = 0; x < Width; x++)
+                    {
+                        var currentTile = _mapGrid[y, x];
+                        if (x == _player.PlayerX && y == _player.PlayerY)
+                        {
+                            Console.ForegroundColor = PLAYER_COLOR;
+                            Console.Write(" O ");
+                            Console.ForegroundColor = MAP_COLOR;
+                        }
+                        else
+                        {
+                            Console.Write("▒▒▒");
+                        }
+                    }
+                    Console.WriteLine();
                 }
 
-                Console.WriteLine();
-
             }
-
         }
+
+
         public void PrintDescription( Player _player)
         {
             Console.WriteLine(_mapGrid[_player.PlayerX , _player.PlayerY].TileDescription);

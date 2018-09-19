@@ -9,21 +9,40 @@ namespace The_Lizard_s_Hangover
 {
     public class Game
     {
+        
         private const ConsoleColor BANNER_COLOR = ConsoleColor.DarkGreen;
         private const ConsoleColor BANNER_BACKGROUND = ConsoleColor.Black;
         private const ConsoleColor MENU_COLOR = ConsoleColor.DarkGreen;
         private const ConsoleColor MENU_BACKGROUND = ConsoleColor.Black;
+        private readonly int WindowWidth = 45;
+        private readonly int WindowHeight = 30;
 
         public Game()
         {
+            Console.SetWindowSize(WindowWidth, WindowHeight);
             Map = new Map();
-            Player = new Player();
-            //Set player starting position
-            Player.PlayerX = 5;
-            Player.PlayerY = 10;
+            Player = new Player
+            {
+                //Set player starting position
+                PlayerX = 5,
+                PlayerY = 10
+            };
+            // an array of all the items in the game. if the InPossession is true, the item is added to the 
+            // players inventory. if the map is true the map is printed. having the torch will print the 
+            // map only in the areas adjacent to player(not done yet).
+            GameItems = new Item[6] ;
+            GameItems[0] = new Sword("sword " , true );
+            GameItems[1] = new Potion(" potion", false);
+            GameItems[2] = new MapItem(" map  ",  false);
+            GameItems[3] = new GemStone("gem stone", false);
+            GameItems[4] = new Potion(" potion", false);
+            GameItems[5] = new Torch(" torch", false);
         }
+
         private Map Map { get; set; }
         private Player Player { get; set; }
+        public Item[] GameItems { get; set; }
+        
 
         private void PrintBanner()
         {
@@ -39,6 +58,7 @@ namespace The_Lizard_s_Hangover
             Console.WriteLine("█▓▒░");
             Console.WriteLine("░▒▓██████████████████████████████▓▒░");
         }
+       
         private void PrintMenu()
         {
             Console.ForegroundColor = MENU_COLOR;
@@ -46,6 +66,75 @@ namespace The_Lizard_s_Hangover
             Console.WriteLine("====================================");
             Console.WriteLine("====== Move: A,D,W,S Quit: Q =======");
             Console.WriteLine("====================================");
+        }
+        private void PrintInventory()
+        {
+            Console.ForegroundColor = MENU_COLOR;
+            Console.BackgroundColor = MENU_BACKGROUND;
+            Console.WriteLine("==============INVENTORY=============");
+            Console.Write("=====");
+            for (int i = 0; i < GameItems.Length; i++)
+            {
+                
+                if (i < 2) {
+                    if (GameItems[i].InPossession == true)
+                    {
+                        Console.Write("| " + GameItems[i].ItemName +"|");
+                    }
+                    else
+                    {
+                        Console.Write("| EMPTY |");
+                    }
+                }
+                else if(i == 2)
+                {
+                    if (GameItems[i].InPossession == true)
+                    {
+                        Console.WriteLine("| " + GameItems[i].ItemName + "|====");
+                        Console.Write("=====");
+                    }
+                    else
+                    {
+                        Console.WriteLine("| EMPTY |====");
+                        Console.Write("=====");
+                    }
+                    
+                }
+                else if(i > 2 &&  i < 5)
+                {
+                    if (GameItems[i].InPossession == true)
+                    {
+                        Console.Write("| " + GameItems[i].ItemName + "|");
+                    }
+                    else
+                    {
+                        Console.Write("| EMPTY |");
+                    }
+                }
+                else if (i == 5)
+                {
+                    
+                    if (GameItems[i].InPossession == true)
+                    {
+                        Console.Write("| " + GameItems[i].ItemName + "|====");
+                        
+                    }
+                    else
+                    {
+                        Console.Write("| EMPTY |====");
+                        
+                    }
+                }
+
+
+
+
+            }
+            Console.Write("\n");
+            Console.WriteLine("====================================");
+            Console.WriteLine("====================================");
+
+
         }
 
         public void Play()
@@ -55,11 +144,13 @@ namespace The_Lizard_s_Hangover
             {
                 Console.Clear();
                 PrintBanner();
-                Map.Print(Player);
+                Map.Print(Player , GameItems[2]);
                 // for testing prints player x and y position on map above description
                 Console.WriteLine("X pos: " + Player.PlayerX + " Y pos: " + Player.PlayerY);
                 Map.PrintDescription(Player);
                 PrintMenu();
+                PrintInventory();
+                
                 
 
                 

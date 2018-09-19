@@ -46,6 +46,8 @@ namespace The_Lizard_s_Hangover
         //that looks and behaves like a public member. We can talk about the reasons why you'd do this..
         public bool IsAccessible { get; set; }
 
+        public bool ContainsItem { get; set; }
+
         //Here's the way to write the long form of a property
         private string _tileName; // This is the private member that actually stores the value 
 
@@ -54,13 +56,10 @@ namespace The_Lizard_s_Hangover
             get { return _tileName; } //This is a getter. It's the code that returns the value
             set { _tileName = value; } //The code that sets the value. 
         }
-        //====================================
-        public string _tileDescription = "";
-        // default tile description for tiles that havent had a description written.
-        public void DefaultTileDescription(Tile _tile, Player _player)
-        {
-            _tile.TileDescription = "Player X pos: " + _player.PlayerX + " Player Y pos: " + _player.PlayerY;
-        }
+        
+        private string _tileDescription = "";
+        
+        
         //This is just the default description for the tile. the starting point. ***Where is the best place
         //to write out each accessible tile's description.its alot of writing(so a different page) but 
         //wont need a class of its own, will it? whats the best way to do that?***
