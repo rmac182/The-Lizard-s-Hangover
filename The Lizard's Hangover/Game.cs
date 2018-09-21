@@ -29,14 +29,28 @@ namespace The_Lizard_s_Hangover
             };
             // an array of all the items in the game. if the InPossession is true, the item is added to the 
             // players inventory. if the map is true the map is printed. having the torch will print the 
-            // map only in the areas adjacent to player(not done yet).
-            GameItems = new Item[6] ;
-            GameItems[0] = new Sword("sword " , true );
-            GameItems[1] = new Potion(" potion", false);
-            GameItems[2] = new MapItem(" map  ",  false);
-            GameItems[3] = new GemStone("gem stone", false);
-            GameItems[4] = new Potion(" potion", false);
-            GameItems[5] = new Torch(" torch", false);
+            // map only in the areas adjacent to player.
+            // cant get the mechanics of giving the choice of picking items up when found and setting
+            // the item to true so it shows in the inventory. 
+            GameItems = new Item[6];
+            Item sword = new Item("sword " , true );
+            Item potion1 = new Item("potion", false);
+            Item map = new Item(" map  ",  false);
+            //                  set to true ^^^^ to see map work. 
+            Item gemStone = new Item("stone ", false);
+            Item potion2 = new Item("potion", false);
+            Item torch  = new Item("torch ", false);
+            //                  set to true ^^^^ to see torch work. map must be false as well. 
+            // was way excited and probably too proud when I got this to work!!!
+
+            GameItems[0] = sword;
+            GameItems[1] = potion1;
+            GameItems[2] = map;
+            GameItems[3] = gemStone;
+            GameItems[4] = potion2;
+            GameItems[5] = torch;
+
+
         }
 
         private Map Map { get; set; }
@@ -144,21 +158,10 @@ namespace The_Lizard_s_Hangover
             {
                 Console.Clear();
                 PrintBanner();
-                Map.Print(Player , GameItems[2]);
+                Map.Print(Player , GameItems[2] , GameItems[5]);
                 // for testing prints player x and y position on map above description
                 Console.WriteLine("X pos: " + Player.PlayerX + " Y pos: " + Player.PlayerY);
                 Map.PrintDescription(Player);
-                // Clunky as hell but demonstrates how the map "works". cant access PickupMap(); 
-                // from the MapItem class for some reason. from the start. go N,W,W,N to find the map.
-                if (Player.PlayerX == 3 && Player.PlayerY == 8)
-                {
-                    GameItems[2].InPossession = true;
-                    Console.Clear();
-                    PrintBanner();
-                    Map.Print(Player, GameItems[2]);
-                    Map.PrintDescription(Player);
-                    Console.WriteLine("you found a map!");
-                }
                 PrintMenu();
                 PrintInventory();
                 

@@ -18,7 +18,8 @@ namespace The_Lizard_s_Hangover
     public class Map
     {
 
-        private Tile[,] _mapGrid;
+        public Tile[,] _mapGrid;
+        private const ConsoleColor NO_MAP_COLOR = ConsoleColor.DarkGray;
         private const ConsoleColor MAP_COLOR = ConsoleColor.DarkGreen;
         private const ConsoleColor PLAYER_COLOR = ConsoleColor.White;
         private const ConsoleColor MAP_BACKGROUND = ConsoleColor.Black;
@@ -54,6 +55,9 @@ namespace The_Lizard_s_Hangover
             _mapGrid[5, 8].TileDescription = "A long trail before you.";
             _mapGrid[5, 7].TileDescription = "A long trail before you.";
             _mapGrid[5, 6].TileDescription = "A long trail before you.";
+            _mapGrid[3,8].TileDescription = "A dead end. Looks like there is \nnowhere to go. You are worried you\nare lost. Then you see something";
+
+            _mapGrid[3, 8].ContainsItem = true;
            
            
 
@@ -103,12 +107,12 @@ namespace The_Lizard_s_Hangover
             return true;
         }
 
-        public void Print(Player _player, Item _item)
+        public void Print(Player _player, Item _itemMap , Item _itemTorch)
         {
             Console.ForegroundColor = MAP_COLOR;
             Console.BackgroundColor = MAP_BACKGROUND;
 
-            if (_item.InPossession == true)
+            if (_itemMap.InPossession == true)
             {
                 for (int y = 0; y < Height; y++)
                 {
@@ -137,33 +141,85 @@ namespace The_Lizard_s_Hangover
 
                 }
             }
-            else
+            else if(_itemMap.InPossession == false && _itemTorch.InPossession == true)
             {
+                // setting up variables for tiles surrounding the player to be lit by torch
+                
+                var currentTileN = _mapGrid[_player.PlayerY - 1, _player.PlayerX];
+                var currentTileNE = _mapGrid[_player.PlayerY - 1, _player.PlayerX + 1];
+                var currentTileE = _mapGrid[_player.PlayerY, _player.PlayerX + 1];
+                var currentTileSE = _mapGrid[_player.PlayerY + 1, _player.PlayerX + 1];
+                var currentTileS = _mapGrid[_player.PlayerY + 1, _player.PlayerX];
+                var currentTileSW = _mapGrid[_player.PlayerY + 1, _player.PlayerX - 1];
+                var currentTileW = _mapGrid[_player.PlayerY, _player.PlayerX - 1];
+                var currentTileNW = _mapGrid[_player.PlayerY - 1, _player.PlayerX - 1];
+
+                currentTileN.TorchLit = true;
+                currentTileNE.TorchLit = true;
+                currentTileE.TorchLit = true;
+                currentTileSE.TorchLit = true;
+                currentTileS.TorchLit = true;
+                currentTileSW.TorchLit = true;
+                currentTileW.TorchLit = true;
+                currentTileNW.TorchLit = true;
+                
+
                 for (int y = 0; y < Height; y++)
                 {
                     for (int x = 0; x < Width; x++)
                     {
+                        
                         var currentTile = _mapGrid[y, x];
+                        
                         if (x == _player.PlayerX && y == _player.PlayerY)
                         {
                             Console.ForegroundColor = PLAYER_COLOR;
                             Console.Write(" O ");
-                            Console.ForegroundColor = MAP_COLOR;
+                            Console.ForegroundColor = NO_MAP_COLOR;
                         }
                         else
                         {
-                            Console.Write("▒▒▒");
+                            if (currentTile.TorchLit == true)
+                            {
+                               
+                                if (currentTile.IsAccessible == true)
+                                {
+                                    Console.Write("   ");
+                                    currentTile.TorchLit = false;
+                                }
+                                else
+                                {
+                                    Console.ForegroundColor = MAP_COLOR;
+                                    Console.Write("▒▒▒");
+                                    currentTile.TorchLit = false;
+                                }
+
+                            }
+                            else
+                            {
+                                if (currentTile.TorchLit == false)
+                                {
+                                    Console.ForegroundColor = NO_MAP_COLOR;
+                                    Console.Write("▒▒▒");
+                                }
+                            }
+                            
                         }
                     }
+                   
                     Console.WriteLine();
                 }
 
             }
+            Console.ForegroundColor = MAP_COLOR;
         }
 
+       
 
-        public void PrintDescription( Player _player)
+
+        public void PrintDescription( Player _player )
         {
+            Console.ForegroundColor = MAP_COLOR;
             Console.WriteLine(_mapGrid[_player.PlayerX , _player.PlayerY].TileDescription);
 
         }
@@ -172,3 +228,7 @@ namespace The_Lizard_s_Hangover
 
 
 }
+                                
+                                
+
+                                

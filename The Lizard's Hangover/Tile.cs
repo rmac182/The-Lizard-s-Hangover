@@ -48,6 +48,8 @@ namespace The_Lizard_s_Hangover
 
         public bool ContainsItem { get; set; }
 
+        public bool TorchLit { get; set; }
+
         //Here's the way to write the long form of a property
         private string _tileName; // This is the private member that actually stores the value 
 
