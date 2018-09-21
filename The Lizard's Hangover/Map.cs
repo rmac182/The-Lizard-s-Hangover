@@ -141,10 +141,10 @@ namespace The_Lizard_s_Hangover
 
                 }
             }
-            else if(_itemMap.InPossession == false && _itemTorch.InPossession == true)
+            else if (_itemMap.InPossession == false && _itemTorch.InPossession == true)
             {
                 // setting up variables for tiles surrounding the player to be lit by torch
-                
+
                 var currentTileN = _mapGrid[_player.PlayerY - 1, _player.PlayerX];
                 var currentTileNE = _mapGrid[_player.PlayerY - 1, _player.PlayerX + 1];
                 var currentTileE = _mapGrid[_player.PlayerY, _player.PlayerX + 1];
@@ -162,15 +162,15 @@ namespace The_Lizard_s_Hangover
                 currentTileSW.TorchLit = true;
                 currentTileW.TorchLit = true;
                 currentTileNW.TorchLit = true;
-                
+
 
                 for (int y = 0; y < Height; y++)
                 {
                     for (int x = 0; x < Width; x++)
                     {
-                        
+
                         var currentTile = _mapGrid[y, x];
-                        
+
                         if (x == _player.PlayerX && y == _player.PlayerY)
                         {
                             Console.ForegroundColor = PLAYER_COLOR;
@@ -181,7 +181,7 @@ namespace The_Lizard_s_Hangover
                         {
                             if (currentTile.TorchLit == true)
                             {
-                               
+
                                 if (currentTile.IsAccessible == true)
                                 {
                                     Console.Write("   ");
@@ -203,13 +203,36 @@ namespace The_Lizard_s_Hangover
                                     Console.Write("▒▒▒");
                                 }
                             }
-                            
+
                         }
                     }
-                   
+
                     Console.WriteLine();
                 }
 
+            }
+            else if (_itemMap.InPossession == false && _itemTorch.InPossession == false)
+            {
+                for(int y = 0; y < Height; y++)
+                {
+                    for (int x = 0; x < Width; x++)
+                    {
+                        var currentTile = _mapGrid[y, x];
+                        if (x == _player.PlayerX && y == _player.PlayerY)
+                        {
+                            Console.ForegroundColor = PLAYER_COLOR;
+                            Console.Write(" O ");
+                            Console.ForegroundColor = NO_MAP_COLOR;
+
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = NO_MAP_COLOR;
+                            Console.Write("▒▒▒");
+                        }
+                    }
+                    Console.WriteLine();
+                }
             }
             Console.ForegroundColor = MAP_COLOR;
         }
