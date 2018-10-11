@@ -30,7 +30,7 @@ namespace The_Lizard_s_Hangover
         //var b = new Tile(true);
         //var c = new Tile("An Awesome Tile");
         //var d = new Tile("Another awesome tile", true);
-        public Tile(string tileName, bool isAccessible = false)
+        public Tile(string tileName, bool containsItem , bool isAccessible = false)
         {
             _tileName = tileName;
             //^^^ Notice that since we're using the long form of the TileName property
@@ -39,6 +39,8 @@ namespace The_Lizard_s_Hangover
             //The difference is when you assign directly to the underlying value, no code in the 
             //property setter is executed. More on this next time we get together.
             IsAccessible = isAccessible;
+            ContainsItem = containsItem;
+            
         }
 
 
@@ -59,7 +61,7 @@ namespace The_Lizard_s_Hangover
             set { _tileName = value; } //The code that sets the value. 
         }
         
-        private string _tileDescription = "";
+        private string _tileDescription = "Default tile description";
         
         
         //This is just the default description for the tile. the starting point. ***Where is the best place
@@ -71,6 +73,8 @@ namespace The_Lizard_s_Hangover
             set { _tileDescription = value; }
 
         }
+
+        
 
         //You could also use public members like this
         //public string TileName;

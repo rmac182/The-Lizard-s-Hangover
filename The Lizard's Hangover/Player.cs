@@ -11,6 +11,8 @@ namespace The_Lizard_s_Hangover
         //Short form properties 
         public int PlayerX { get;  set; }
         public int PlayerY { get;  set; }
+        public bool Alive { get; set; } = true;
+        public bool Wins { get; set; } = false;
 
 
     }

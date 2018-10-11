@@ -18,6 +18,7 @@ namespace The_Lizard_s_Hangover
             _itemName = itemName;
             InPossession = inPossession;
         }
+
         public bool InPossession { get; set; }
 
         private string _itemName;

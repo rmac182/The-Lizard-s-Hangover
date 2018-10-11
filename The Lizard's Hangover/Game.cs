@@ -14,8 +14,8 @@ namespace The_Lizard_s_Hangover
         private const ConsoleColor BANNER_BACKGROUND = ConsoleColor.Black;
         private const ConsoleColor MENU_COLOR = ConsoleColor.DarkGreen;
         private const ConsoleColor MENU_BACKGROUND = ConsoleColor.Black;
-        private readonly int WindowWidth = 45;
-        private readonly int WindowHeight = 30;
+        private readonly int WindowWidth = 40;
+        private readonly int WindowHeight = 40;
 
         public Game()
         {
@@ -35,13 +35,11 @@ namespace The_Lizard_s_Hangover
             GameItems = new Item[6];
             Item sword = new Item("sword " , true );
             Item potion1 = new Item("potion", false);
-            Item map = new Item(" map  ",  false);
-            //                  set to true ^^^^ to see map work. 
+            Item map = new Item(" map  ",  false); 
             Item gemStone = new Item("stone ", false);
             Item potion2 = new Item("potion", false);
             Item torch  = new Item("torch ", false);
-            //                  set to true ^^^^ to see torch work. map must be false as well. 
-            // was way excited and probably too proud when I got this to work!!!
+            
 
             GameItems[0] = sword;
             GameItems[1] = potion1;
@@ -58,7 +56,7 @@ namespace The_Lizard_s_Hangover
         public Item[] GameItems { get; set; }
         
 
-        private void PrintBanner()
+        public void PrintBanner()
         {
             Console.ForegroundColor = BANNER_COLOR;
             Console.BackgroundColor = BANNER_BACKGROUND;
@@ -73,7 +71,7 @@ namespace The_Lizard_s_Hangover
             Console.WriteLine("░▒▓██████████████████████████████▓▒░");
         }
        
-        private void PrintMenu()
+        public void PrintMenu()
         {
             Console.ForegroundColor = MENU_COLOR;
             Console.BackgroundColor = MENU_BACKGROUND;
@@ -81,7 +79,7 @@ namespace The_Lizard_s_Hangover
             Console.WriteLine("====== Move: A,D,W,S Quit: Q =======");
             Console.WriteLine("====================================");
         }
-        private void PrintInventory()
+        public void PrintInventory()
         {
             Console.ForegroundColor = MENU_COLOR;
             Console.BackgroundColor = MENU_BACKGROUND;
@@ -160,14 +158,31 @@ namespace The_Lizard_s_Hangover
                 PrintBanner();
                 Map.Print(Player , GameItems[2] , GameItems[5]);
                 // for testing prints player x and y position on map above description
-                Console.WriteLine("X pos: " + Player.PlayerX + " Y pos: " + Player.PlayerY);
-                Map.PrintDescription(Player);
-                PrintMenu();
-                PrintInventory();
+                Console.WriteLine(Map._mapGrid[Player.PlayerX , Player.PlayerY].TileName);
                 
-                
+                Map.PrintDescription(Player , GameItems , this);
+                if (Player.Alive)
+                {
+                    PrintMenu();
+                    PrintInventory();
+                }
+                else
+                {
+                    PrintDeadMessage();
+                    Console.ReadLine();
+                    PrintExitMessage();
+                }
+                if (Player.Alive && Player.Wins)
+                {
+                    
+                    PrintWinMessage();
+                   
+                    
+                }
+               
 
-                
+
+
                 var input = Console.ReadKey();
 
                 switch (input.Key)
@@ -201,10 +216,57 @@ namespace The_Lizard_s_Hangover
 
         private void PrintExitMessage()
         {
-            Console.WriteLine("Thanks for playing!");
+            Console.Clear();
+            Console.WriteLine("==================================");
+            Console.WriteLine("==================================");
+            Console.WriteLine("=======Thanks for playing!========");
+            Console.WriteLine("==================================");
+            Console.WriteLine("==================================");
+
+            Console.ReadLine();
 
         }
 
+        public void PrintDeadMessage()
+        {
+            Console.Clear();
+            Console.WriteLine("====================================");
+            Console.WriteLine("====================================");
+            Console.WriteLine("===========Your Are Dead!===========");
+            Console.WriteLine("=============GAME OVER==============");
+            Console.WriteLine("====================================");
+            Console.WriteLine("====================================");
+            Console.WriteLine("====================================");
+            Console.WriteLine("========Thanks for playing!=========");
+            Console.WriteLine("====================================");
+            Console.WriteLine("====================================");
+
+            Console.ReadLine();
+
+
+
+        }
+
+        public void PrintWinMessage()
+        {
+            Console.Clear();
+            Console.WriteLine("==========CONGRATULATIONS!==========");
+            Console.WriteLine("===                              ===");
+            Console.WriteLine("= You win because you are totally  =");
+            Console.WriteLine("===        Rich and Stuff!       ===");
+            Console.WriteLine("===          GAME OVER           ===");
+            Console.WriteLine("===                              ===");
+            Console.WriteLine("===     Thanks for playing!      ===");
+            Console.WriteLine("===                              ===");
+            Console.WriteLine("====================================");
+
+            Console.ReadLine();
+
+
+
+        }
 
     }
 }
+            
+            
